@@ -1,0 +1,454 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "e-manager backend",
+    "description": "Backend do desafio de frontend do Union",
+    "contact": {
+      "name": "Leandro Lopes",
+      "email": "contato.leandrolopes@outlook.com",
+      "url": "https://www.linkedin.com/in/leandroolopes"
+    }
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/products/": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Endpoint for create a new product",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCreateResponseDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateRequestDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateRequestDTO"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Endpoint for get all product",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductFindAllResponseDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Endpoint for get product by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductGetByIdResponseDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Endpoint for update product",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductUpdateResponseDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdateRequestDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdateRequestDTO"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Endpoint for remove product",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ServerError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Internal server error"
+          }
+        },
+        "xml": {
+          "name": "ServerError"
+        }
+      },
+      "ProductCreateRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Loren ipsum dolor"
+          },
+          "price": {
+            "type": "number",
+            "example": 10.5
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          },
+          "category": {
+            "type": "string",
+            "example": "Any String"
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "quantity",
+          "category"
+        ],
+        "xml": {
+          "name": "ProductCreateRequestDTO"
+        }
+      },
+      "ProductCreateResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4abdbad9-21c6-434f-906f-606fb1e74c86"
+          },
+          "name": {
+            "type": "string",
+            "example": "Loren ipsum dolor"
+          },
+          "price": {
+            "type": "number",
+            "example": 10.5
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          },
+          "category": {
+            "type": "string",
+            "example": "Any String"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-03-01T02:45:08.929Z"
+          }
+        },
+        "xml": {
+          "name": "ProductCreateResponseDTO"
+        }
+      },
+      "ProductFindAllResponseDTO": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "4abdbad9-21c6-434f-906f-606fb1e74c86"
+            },
+            "name": {
+              "type": "string",
+              "example": "Loren ipsum dolor"
+            },
+            "price": {
+              "type": "number",
+              "example": 10.5
+            },
+            "quantity": {
+              "type": "number",
+              "example": 10
+            },
+            "category": {
+              "type": "string",
+              "example": "Loren"
+            },
+            "created_at": {
+              "type": "string",
+              "example": "2023-03-01T02:45:08.929Z"
+            }
+          }
+        },
+        "xml": {
+          "name": "ProductFindAllResponseDTO"
+        }
+      },
+      "ProductGetByIdResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "bf28cec6-f3b5-4f6d-a654-d47e02049b0e"
+          },
+          "name": {
+            "type": "string",
+            "example": "Loren ipsum dolor"
+          },
+          "price": {
+            "type": "string",
+            "example": "10.5"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          },
+          "category": {
+            "type": "string",
+            "example": "Loren"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-03-01T04:18:22.163Z"
+          }
+        },
+        "xml": {
+          "name": "ProductGetByIdResponseDTO"
+        }
+      },
+      "ProductNotFoundError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Product not found"
+          }
+        },
+        "xml": {
+          "name": "ProductNotFoundError"
+        }
+      },
+      "ProductUpdateResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4abdbad9-21c6-434f-906f-606fb1e74c86"
+          },
+          "name": {
+            "type": "string",
+            "example": "Loren ipsum dolor edit"
+          },
+          "price": {
+            "type": "string",
+            "example": "10.5"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          },
+          "category": {
+            "type": "string",
+            "example": "Loren"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-03-01T02:45:08.929Z"
+          }
+        },
+        "xml": {
+          "name": "ProductUpdateResponseDTO"
+        }
+      },
+      "ProductUpdateRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Loren ipsum dolor edit"
+          },
+          "price": {
+            "type": "number",
+            "example": 10.5
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          },
+          "category": {
+            "type": "string",
+            "example": "Loren"
+          }
+        },
+        "xml": {
+          "name": "ProductUpdateRequestDTO"
+        }
+      }
+    }
+  }
+}
