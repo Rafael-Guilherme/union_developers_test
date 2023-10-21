@@ -1,8 +1,13 @@
+import MenuMobile from "./MenuMobile/MenuMobile";
+import MenuDesktop from "./MenuDesktop/MenuDesktop";
 
 const Menu = () => {
   return (
-    <div>Menu</div>
-  )
-}
+    <>
+      <MenuMobile />
+      <MenuDesktop />
+    </>
+  );
+};
 
-export default Menu
+export default Menu;

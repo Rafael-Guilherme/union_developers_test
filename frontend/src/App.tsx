@@ -1,10 +1,11 @@
 import './App.scss'
+import Menu from './components/Menu/Menu'
 
 function App() {
 
   return (
     <>
-      <h1 className="title">Hello World!</h1>
+      <Menu />
     </>
   )
 }
