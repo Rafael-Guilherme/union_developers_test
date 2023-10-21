@@ -1,0 +1,6 @@
+@use './styles/colors.scss' as *;
+
+.app {
+    display: flex;
+    background-color: $background;
+}

@@ -1,0 +1,77 @@
+@use '../../styles/colors.scss' as *;
+
+.container-card {
+    width: 407px;
+    height: 392px;
+    border-radius: 4px;
+    background-color: $background-card;
+    box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.15);
+    font-family: Roboto;
+    margin-top: 64px;
+
+    &.secondary {
+        margin-right: 20px;
+        margin-left: 20px;
+        box-shadow: none;
+        
+    }
+
+    &.terciary {
+        box-shadow: none;
+    }
+
+    .title-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 22px;
+        margin: 25px 60px 14px;
+    }
+
+    .line {
+        background-color: $cinza;
+        width: 407px;
+        height: 1px;
+    }
+
+    .list-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 400;
+        font-size: 16px;
+        margin: 24px 16px;
+
+        .primary-name {
+            color: $primary;
+        }
+
+        .primary-value {
+            color: $secondary;
+        }
+    }
+
+    .total-products {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 325px;
+
+        .total-products-value {
+            font-family: Poppins;
+            font-weight: 600;
+            font-size: 48px;
+        }
+
+        .total-products-description {
+            font-weight: 400;
+            font-size: 18px;
+        }
+
+    }
+}
+
+
+
