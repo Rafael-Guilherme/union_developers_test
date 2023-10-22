@@ -1,0 +1,35 @@
+@use '../../styles/colors.scss' as *;
+
+.product-table {
+    margin: 20px;
+    width: 996px;
+  
+    .table-header {
+      background-color: $cinza;
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      grid-template-columns: repeat(6, 1fr);
+      padding: 10px;
+      font-weight: 400;
+      font-size: 18px;
+      color: $primary;
+    }
+  
+  
+    .table-row {
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      grid-template-columns: repeat(6, 1fr);
+      padding: 10px;
+      border-bottom: 1px solid $cinza;
+    }
+  
+    .action-button-style {
+        width: 120px;
+        height: 38px;
+        margin-bottom: 8px;
+    }
+  }
+  

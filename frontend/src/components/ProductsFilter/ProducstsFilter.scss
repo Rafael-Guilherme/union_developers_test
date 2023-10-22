@@ -1,0 +1,29 @@
+@use '../../styles/colors.scss' as *;
+
+.product-filter {
+    display: flex;
+    align-items: center;
+    width: 549px;
+    height: 65px;
+    border: 1px $input-border solid;
+    border-radius: 10px;
+    margin: 24px 0 80px;
+    padding: 24px 12px;
+
+    .product-filter-input {
+        font-weight: 400px;
+        font-size: 18px;
+        margin-left: 8px;
+        background-color: transparent;
+        width: 549px;
+        height: 65px;
+        border: none;
+        &::placeholder {
+            font-weight: 400px;
+            font-size: 18px;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}
