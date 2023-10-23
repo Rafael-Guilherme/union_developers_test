@@ -22,7 +22,7 @@ const ProductFilter = ({ onFilterChange }: ProductFilterProps) => {
         className="product-filter-input"
         type="text"
         id="filter"
-        placeholder="Buscar produto"
+        placeholder="Buscar produto ou categoria"
         onChange={handleFilterChange}
       />
     </div>

@@ -1,3 +1,4 @@
+import { priceConvertedToReal } from '../../utils/priceReal'
 import './DashBoardCard.scss'
 
 type Products = {
@@ -12,7 +13,7 @@ interface DashBoardCardProps {
     list?: Products[] 
     secondary?: boolean
     terciary?: boolean
-    total?: string 
+    total?: number 
     description?: string 
 }
 
@@ -33,7 +34,7 @@ const DashBoardCard = ({ title, list, secondary, terciary, total, description }:
               {list && list.map((item, index) => (
                 <li className='list-card' key={index}>
                   <p className={`${secondary ? "primary-name" : ""}`}>{item.name}:</p> 
-                  <p className={`${secondary ? "primary-value" : ""}`}>{`${secondary ? item.price : item.quantity}`}</p>
+                  <p className={`${secondary ? "primary-value" : ""}`}>{`${secondary ? priceConvertedToReal(parseFloat(item.price || '0')) : item.quantity}`}</p>
                 </li>
               ))}
             </ul>

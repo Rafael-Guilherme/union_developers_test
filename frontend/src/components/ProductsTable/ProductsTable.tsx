@@ -1,13 +1,8 @@
+import Product from "../../models/Product";
+import { priceConvertedToReal } from "../../utils/priceReal";
 import ActionButton from "../Button/ActionButton";
 import "./ProductsTable.scss";
 
-interface Product {
-  id: number;
-  nome: string;
-  categoria: string;
-  preço: number;
-  quantidade: number;
-}
 
 interface ProductTableProps {
   products: Product[];
@@ -28,13 +23,13 @@ const ProductTable = ({ products }: ProductTableProps) => {
         {products.map((product) => (
           <div key={product.id} className="table-row">
             <div>{product.id}</div>
-            <div>{product.nome}</div>
-            <div>{product.categoria}</div>
-            <div>{product.preço}</div>
-            <div>{product.quantidade}</div>
+            <div>{product.name}</div>
+            <div>{product.category}</div>
+            <div>{priceConvertedToReal(parseFloat(product.price || '0'))}</div>
+            <div>{product.quantity}</div>
             <div>
-              <ActionButton className="action-button-style" text="Editar" color="blue" onClick={() => {}} />
-              <ActionButton className="action-button-style" text="Remover" color="red" onClick={() => {}} />
+              <ActionButton type="button" className="action-button-style" text="Editar" color="blue" onClick={() => {}} />
+              <ActionButton type="button" className="action-button-style" text="Remover" color="red" onClick={() => {}} />
             </div>
           </div>
         ))}
