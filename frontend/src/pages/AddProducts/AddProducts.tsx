@@ -1,51 +1,124 @@
-import ActionButton from "../../components/Button/ActionButton"
-import InputAddProducts from "../../components/InputAddProducts/InputAddProducts"
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import './AddProducts.scss'
+import { AddProductsSchemaValidation } from '../../schema/AddProductsShemaValidation'
+
+import ActionButton from "../../components/Button/ActionButton";
+import InputAddProducts from "../../components/InputAddProducts/InputAddProducts";
+
+import "./AddProducts.scss";
+import { toast } from "react-toastify";
+
+type FormData = {
+  name: string;
+  category: string;
+  price?: string;
+  quantity: string;
+};
 
 const AddProducts = () => {
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: yupResolver(AddProductsSchemaValidation)
+  });
+
+  const onSubmit = async (data: FormData) => {
+
+    try {
+      console.log(data);
+      toast.success("Produto cadastrado com sucesso!")
+    } catch (error) {
+      console.log(error)
+      toast.error("Ocorreu um erro no cadastro do seu produto, tente novamente!")
+    }
+  };
+
   return (
     <div className="container-add-products">
       <h1>Adicionar Produtos</h1>
-      <form>
-        <InputAddProducts 
-          label="Nome"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
           name="name"
-          placeholder="Nome do produto"
-          type="text"
-          value=""
-          onChange={() => {}}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <>
+              <InputAddProducts
+                label="Nome"
+                name="name"
+                placeholder="Nome do produto"
+                type="text"
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {errors.name?.message}
+            </>
+          )}
         />
-        <InputAddProducts 
-          label="Categoria"
+        <Controller
           name="category"
-          placeholder="Categoria do produto"
-          type="text"
-          value=""
-          onChange={() => {}}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <>
+              <InputAddProducts
+                label="Categoria"
+                name="category"
+                placeholder="Categoria do produto"
+                type="text"
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {errors.category?.message}
+            </>
+          )}
         />
-        <InputAddProducts 
-          label="Preço"
+        <Controller
           name="price"
-          placeholder="0"
-          type="text"
-          value=""
-          onChange={() => {}}
+          control={control}
+          defaultValue="R$ 0,00"
+          render={({ field }) => (
+            <>
+              <InputAddProducts
+                label="Preço"
+                name="price"
+                placeholder="0"
+                type="text"
+                value={`${field.value}`}
+                onChange={field.onChange}
+              />
+              {errors.price?.message}
+            </>
+          )}
         />
-        <InputAddProducts 
-          label="Quantidade"
+        <Controller
           name="quantity"
-          placeholder="0"
-          type="text"
-          value=""
-          onChange={() => {}}
+          control={control}
+          defaultValue="0"
+          render={({ field }) => (
+            <>
+              <InputAddProducts
+                label="Quantidade"
+                name="quantity"
+                placeholder="0"
+                type="number"
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {errors.quantity?.message}
+            </>
+          )}
         />
         <div className="container-button">
-          <ActionButton className="add-product-button" text="Adicionar" color="blue" onClick={() => {}} />
+          <ActionButton
+            className="add-product-button"
+            text="Adicionar"
+            color="blue"
+            onClick={() => {}}
+          />
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddProducts
+export default AddProducts;

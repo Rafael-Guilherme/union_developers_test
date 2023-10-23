@@ -5,6 +5,7 @@ interface ActionButtonProps {
   text: string;
   onClick: () => void;
   className?: string;
+  //type: "button" | "submit"
 }
 
 const ActionButton = ({ color, text, onClick, className }: ActionButtonProps) => {
