@@ -10,25 +10,25 @@ const Dashboard = () => {
     const { itens } = useSelector((state: RootReducer) => state.product)
 
     const filterLowProducts = () => {
-        const lowProducts = itens
-
+        const lowProducts = itens ? [...itens] : []
+      
         lowProducts.sort((a, b) => parseInt(a.quantity) - parseInt(b.quantity))
-
+      
         return lowProducts
-    }
-
-    const filterExpensiveProducts = () => {
-        const expensiveProduct = itens
-
+      }
+      
+      const filterExpensiveProducts = () => {
+        const expensiveProduct = itens ? [...itens] : []
+      
         expensiveProduct.sort((a, b) => {
-            const priceA = a.price ? parseInt(a.price, 10) : 0; 
-            const priceB = b.price ? parseInt(b.price, 10) : 0; 
-        
-            return priceB - priceA;
-          });
-
+          const priceA = a.price ? parseInt(a.price, 10) : 0 
+          const priceB = b.price ? parseInt(b.price, 10) : 0 
+      
+          return priceB - priceA
+        })
+      
         return expensiveProduct
-    }
+      }
 
     const getTotalProducts = () => {
         const totalProducts = itens.length
