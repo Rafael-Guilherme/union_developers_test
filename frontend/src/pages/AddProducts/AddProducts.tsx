@@ -1,13 +1,13 @@
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import { AddProductsSchemaValidation } from '../../schema/AddProductsShemaValidation'
+import { toast } from "react-toastify";
 
 import ActionButton from "../../components/Button/ActionButton";
 import InputAddProducts from "../../components/InputAddProducts/InputAddProducts";
 
+
 import "./AddProducts.scss";
-import { toast } from "react-toastify";
 
 type FormData = {
   name: string;
@@ -22,7 +22,6 @@ const AddProducts = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-
     try {
       console.log(data);
       toast.success("Produto cadastrado com sucesso!")
@@ -113,7 +112,7 @@ const AddProducts = () => {
             className="add-product-button"
             text="Adicionar"
             color="blue"
-            onClick={() => {}}
+            type="submit"
           />
         </div>
       </form>
