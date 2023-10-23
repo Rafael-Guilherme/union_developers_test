@@ -5,3 +5,11 @@
     justify-content: center;
     margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .container-dashboard {
+      flex-direction: column; 
+      align-items: center;
+      margin-bottom: 40px;
+    }
+  }

@@ -10,19 +10,18 @@ import { remove } from "../../store/reducers/products";
 
 import "./ProductsTable.scss";
 
-
 interface ProductTableProps {
   products: Product[];
 }
 
 const ProductTable = ({ products }: ProductTableProps) => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [productIdToRemove, setProductIdToRemove] = useState<number | null>(null);
 
   const goToEditPage = (productId: number) => {
-    navigate(`${productId}`)
+    navigate(`${productId}`);
   }
 
   const openModal = (productId: number) => {
@@ -43,30 +42,32 @@ const ProductTable = ({ products }: ProductTableProps) => {
   }
 
   return (
-    <div className="product-table">
-      <div className="table-header">
-        <p>ID</p>
-        <p>Nome</p>
-        <p>Categoria</p>
-        <p>Preço</p>
-        <p>Quantidade</p>
-        <p>Ações</p>
-      </div>
-      <div className="table-body">
+    <table className="product-table">
+      <thead>
+        <tr className="table-header">
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
         {products.map((product) => (
-          <div key={product.id} className="table-row">
-            <p>{product.id}</p>
-            <p>{product.name}</p>
-            <p>{product.category}</p>
-            <p>{priceConvertedToReal(parseFloat(product.price || '0'))}</p>
-            <p>{product.quantity}</p>
-            <div>
+          <tr className="table-row" key={product.id}>
+            <td data-title="ID">{product.id}</td>
+            <td data-title="Nome">{product.name}</td>
+            <td data-title="Categoria">{product.category}</td>
+            <td data-title="Preço">{priceConvertedToReal(parseFloat(product.price || '0'))}</td>
+            <td data-title="Quantidade">{product.quantity}</td>
+            <td data-title="Ações">
               <ActionButton type="button" className="action-button-style" text="Editar" color="blue" onClick={() => goToEditPage(product.id)} />
               <ActionButton type="button" className="action-button-style" text="Remover" color="red" onClick={() => openModal(product.id)} />
-            </div>
-          </div>
+            </td>
+          </tr>
         ))}
-      </div>
+      </tbody>
       {showModal && (
         <div className="modal-background">
           <div className="modal">
@@ -79,7 +80,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
           </div>
         </div>
       )}
-    </div>
+    </table>
   );
 };
 

@@ -65,8 +65,9 @@ const EditProducts = () => {
   };
 
   return (
-    <div className="container-add-products">
-      <h1>Editar Produtos{}</h1>
+    <div className="container-edit-products">
+      <h1>Editar Produto</h1>
+      <p>{productInformation?.name}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="name"
@@ -142,7 +143,7 @@ const EditProducts = () => {
         />
         <div className="container-button">
           <ActionButton
-            className="add-product-button"
+            className="edit-product-button"
             text="Atualizar"
             color="blue"
             type="submit"

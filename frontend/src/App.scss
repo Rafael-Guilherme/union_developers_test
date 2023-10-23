@@ -2,7 +2,10 @@
 
 .app {
     display: flex;
-    background-color: $background;
-    width: 100vw;
-    height: 100vh;
+
+    @media (max-width: 768px) {
+        flex-direction: column; 
+        align-items: center;
+    }
+      
 }

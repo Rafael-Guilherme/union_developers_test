@@ -9,12 +9,42 @@
     width: 100vw;
 
     h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+
+    p {
+        font-weight: 600;
+        font-size: 16px;
         margin-bottom: 72px;
+    }
+
+    @media screen and (max-width: 768px) {
+        h1 {
+            margin: 48px 0;
+        }
     }
 
     .container-button {
         display: flex;
         align-items: start;
         width: 612px;
+    }
+
+    .edit-product-button {
+        width: 233px;
+        height: 57px;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container-button {
+            display: flex;
+            flex-direction: column; 
+            align-items: start;
+            width: 100%;
+        }
     }
 }

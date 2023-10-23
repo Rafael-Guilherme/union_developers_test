@@ -10,6 +10,10 @@
     margin: 24px 0 80px;
     padding: 24px 12px;
 
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
     .product-filter-input {
         font-weight: 400px;
         font-size: 18px;
@@ -24,6 +28,10 @@
         }
         &:focus {
             outline: none;
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
         }
     }
 }
