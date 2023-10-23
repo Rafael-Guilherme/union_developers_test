@@ -1,7 +1,7 @@
 import "./ActionButton.scss";
 
 interface ActionButtonProps {
-  color: "blue" | "red";
+  color: "blue" | "red" | "gray";
   text: string;
   onClick?: () => void;
   className?: string;

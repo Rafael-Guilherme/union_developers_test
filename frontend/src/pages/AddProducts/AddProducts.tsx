@@ -90,7 +90,7 @@ const AddProducts = () => {
         <Controller
           name="price"
           control={control}
-          defaultValue="R$ 0,00"
+          defaultValue="0"
           render={({ field }) => (
             <>
               <InputAddProducts
