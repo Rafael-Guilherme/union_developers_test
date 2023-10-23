@@ -2,14 +2,17 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AddProductsSchemaValidation } from '../../schema/AddProductsShemaValidation'
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { add } from "../../store/reducers/products";
 
 import ActionButton from "../../components/Button/ActionButton";
 import InputAddProducts from "../../components/InputAddProducts/InputAddProducts";
 
 
 import "./AddProducts.scss";
+import { useNavigate } from "react-router-dom";
 
-type FormData = {
+export type ProductsData = {
   name: string;
   category: string;
   price?: string;
@@ -17,14 +20,27 @@ type FormData = {
 };
 
 const AddProducts = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { control, handleSubmit, formState: { errors } } = useForm<ProductsData>({
     resolver: yupResolver(AddProductsSchemaValidation)
   });
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: ProductsData) => {
     try {
+      dispatch(add({
+        name: data.name,
+        category: data.category,
+        price: data.price,
+        quantity: data.quantity
+      }))
+
       console.log(data);
       toast.success("Produto cadastrado com sucesso!")
+
+      setTimeout(() => {
+        navigate('/dashboard')
+      }, 2000)
     } catch (error) {
       console.log(error)
       toast.error("Ocorreu um erro no cadastro do seu produto, tente novamente!")

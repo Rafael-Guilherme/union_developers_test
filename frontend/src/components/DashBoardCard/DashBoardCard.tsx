@@ -2,7 +2,9 @@ import './DashBoardCard.scss'
 
 type Products = {
     name: string
-    value: string
+    category: string
+    price?: string
+    quantity: string
 }
 
 interface DashBoardCardProps {
@@ -31,7 +33,7 @@ const DashBoardCard = ({ title, list, secondary, terciary, total, description }:
               {list && list.map((item, index) => (
                 <li className='list-card' key={index}>
                   <p className={`${secondary ? "primary-name" : ""}`}>{item.name}:</p> 
-                  <p className={`${secondary ? "primary-value" : ""}`}>{item.value}</p>
+                  <p className={`${secondary ? "primary-value" : ""}`}>{`${secondary ? item.price : item.quantity}`}</p>
                 </li>
               ))}
             </ul>
