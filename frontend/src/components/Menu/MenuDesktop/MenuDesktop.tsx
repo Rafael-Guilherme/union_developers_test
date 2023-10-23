@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import logo from "../../../assets/logo.png";
@@ -9,15 +10,15 @@ import Bar from "../../../assets/bar.svg?react";
 import Arrow_right from "../../../assets/arrow-right.svg?react";
 import Arrow_left from "../../../assets/arrow-left.svg?react";
 
-import "./MenuDesktop.scss"
-
+import "./MenuDesktop.scss";
 
 const MenuDesktop = () => {
-    const [toggleMenu, setToggleMenu] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const location = useLocation();
 
-    const toggleMenuHandler = () => {
-        setToggleMenu(!toggleMenu);
-      };
+  const toggleMenuHandler = () => {
+    setToggleMenu(!toggleMenu);
+  };
 
   return (
     <div className="motion-container">
@@ -29,14 +30,26 @@ const MenuDesktop = () => {
           <nav className="container">
             <img className="logo-image" src={logo} />
             <ul>
-              <li className="list">
+              <li
+                className={`list ${
+                  location.pathname === "/dashboard" ? "active" : ""
+                }`}
+              >
                 <Dashboard className="icon" />
-                <a className="list-item">Dashboard</a>
+                <NavLink to="/dashboard" className="list-item">
+                  Dashboard
+                </NavLink>
                 <Arrow className="icon" />
               </li>
-              <li className="list">
+              <li
+                className={`list ${
+                  location.pathname === "/products" ? "active" : ""
+                }`}
+              >
                 <Bar className="icon" />
-                <a className="list-item">Produtos</a>
+                <NavLink to="/products" className="list-item">
+                  Produtos
+                </NavLink>
                 <Arrow className="icon" />
               </li>
             </ul>

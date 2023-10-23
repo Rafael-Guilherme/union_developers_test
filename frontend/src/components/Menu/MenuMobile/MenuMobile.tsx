@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import logo from "../../../assets/logo.png";
@@ -8,34 +9,46 @@ import Arrow from "../../../assets/chevron-down.svg?react";
 import Bar from "../../../assets/bar.svg?react";
 import Categories from "../../../assets/menu.svg?react";
 
-import "./MenuMobile.scss"
-
+import "./MenuMobile.scss";
 
 const MenuMobile = () => {
-    const [toggleMobile, setToggleMobile] = useState(true);
+  const [toggleMobile, setToggleMobile] = useState(true);
+  const location = useLocation();
 
-    const toggleMobileHandler = () => {
-        setToggleMobile(!toggleMobile);
-      };
+  const toggleMobileHandler = () => {
+    setToggleMobile(!toggleMobile);
+  };
 
   return (
     <div className="mobile-only">
-        {!toggleMobile ? (
-          <motion.div
-          whileInView={{ y: [-800, 0] }}
+      {!toggleMobile ? (
+        <motion.div
+          whileInView={{ x: [-285, 0] }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <nav className="container">
             <img className="logo-image" src={logo} />
             <ul>
-              <li className="list">
+              <li className={`list ${location.pathname === '/dashboard' ? 'active-mobile' : ''}`}>
                 <Dashboard className="icon" />
-                <a className="list-item">Dashboard</a>
+                <NavLink
+                  to="/dashboard"
+                  className="list-item"
+                  onClick={() => toggleMobileHandler()}
+                >
+                  Dashboard
+                </NavLink>
                 <Arrow className="icon" />
               </li>
-              <li className="list">
+              <li className={`list ${location.pathname === '/products' ? 'active-mobile' : ''}`}>
                 <Bar className="icon" />
-                <a className="list-item">Produtos</a>
+                <NavLink
+                  to="/products"
+                  className="list-item"
+                  onClick={() => toggleMobileHandler()}
+                >
+                  Produtos
+                </NavLink>
                 <Arrow className="icon" />
               </li>
               <li className="list">
@@ -48,13 +61,13 @@ const MenuMobile = () => {
             </ul>
           </nav>
         </motion.div>
-        ) : (
-          <div className="closed-menu">
-            <Categories onClick={() => toggleMobileHandler()} className="menu" />
-          </div>
-        )}
-      </div>
-  )
-}
+      ) : (
+        <div className="closed-menu">
+          <Categories onClick={() => toggleMobileHandler()} className="menu" />
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default MenuMobile
+export default MenuMobile;

@@ -1,6 +1,5 @@
 import Menu from './components/Menu/Menu'
-//import Dashboard from './pages/Dashboard/Dashboard'
-import Products from './pages/Products/Products'
+import RoutesTree from './routes/Routes'
 
 import './App.scss'
 
@@ -9,8 +8,7 @@ function App() {
   return (
     <div className='app'>
       <Menu />
-      {/* <Dashboard /> */}
-      <Products />
+      <RoutesTree />
     </div>
   )
 }
