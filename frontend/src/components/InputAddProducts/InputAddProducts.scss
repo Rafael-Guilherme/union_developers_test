@@ -1,0 +1,36 @@
+@use '../../styles/colors.scss' as *;
+
+.container-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
+
+.label-field {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 18px;
+    color: $input-border;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 16px;
+    width: 612px;
+    height: 54px;
+    border-radius: 4px;
+    border: none;
+    background-color: $background-card;
+    padding: 16px 24px;
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 16px;
+        color: #CCD2DB;
+    }
+}

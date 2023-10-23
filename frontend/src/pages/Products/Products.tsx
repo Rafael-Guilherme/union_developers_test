@@ -4,6 +4,7 @@ import ProductTable from "../../components/ProductsTable/ProductsTable";
 
 import './Products.scss'
 import ActionButton from "../../components/Button/ActionButton";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   { id: 1, nome: "Produto 1", categoria: "Categoria A", preço: 10, quantidade: 5 },
@@ -13,6 +14,7 @@ const products = [
 
 const Products = () => {
   const [filter, setFilter] = useState("");
+  const navigate = useNavigate()
 
   const filteredProducts = products.filter(
     (product) =>
@@ -24,12 +26,16 @@ const Products = () => {
     setFilter(newFilter);
   };
 
+  const handleAddProductsPage = () => {
+    navigate('/products/add')
+  }
+
   return (
     <div className="products-container">
       <h1 className="products-title">Produtos</h1>
       <ProductFilter onFilterChange={handleFilterChange} />
       <ProductTable products={filteredProducts} />
-      <ActionButton className="add-button" text="Adicionar produto" color="blue" onClick={() => {}}  />
+      <ActionButton className="add-button" text="Adicionar produto" color="blue" onClick={handleAddProductsPage}  />
     </div>
   );
 }
