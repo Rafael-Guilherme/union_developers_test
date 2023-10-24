@@ -48,7 +48,6 @@ const ProductTable = ({ products }: ProductTableProps) => {
       await deleteProduct.mutateAsync(productIdToRemove)
       queryClient.invalidateQueries('products');
       dispatch(remove(productIdToRemove));
-
       toast.success('Produto removido com sucesso do banco de dados!');
 
       closeModal();

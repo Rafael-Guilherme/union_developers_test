@@ -1,11 +1,30 @@
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import ProductTable from "./ProductsTable";
 
-import store from "../../store";
+import configureStore from "redux-mock-store";
+
+jest.mock("../../store/reducers/products", () => ({
+    removeProduct: (id: string) => ({ type: "REMOVE_PRODUCT", payload: id }),
+  }));
+  
+
+const mockStore = configureStore([]);
+const store = mockStore({
+  products: [
+    { id: 1, name: "Product A" },
+    { id: 2, name: "Product B" },
+  ],
+});
 
 const queryClient = new QueryClient();
 
@@ -58,6 +77,7 @@ test('abre o modal de confirmação ao clicar em "Remover"', async () => {
       </Provider>
     </MemoryRouter>
   );
+
   const removeButton = screen.getAllByText("Remover")[0];
 
   act(() => {
@@ -65,11 +85,15 @@ test('abre o modal de confirmação ao clicar em "Remover"', async () => {
   });
 
   await waitFor(() => {
-    const modalMessage = screen.queryByText("Tem certeza que deseja remover esse produto?");
+    const modalMessage = screen.queryByText(
+      "Tem certeza que deseja remover esse produto?"
+    );
     expect(modalMessage).toBeInTheDocument();
   });
 
-  const modal = screen.queryByText("Tem certeza que deseja remover esse produto?");
+  const modal = screen.queryByText(
+    "Tem certeza que deseja remover esse produto?"
+  );
 
   const closeButton = screen.getByText("Não");
   const confirmButton = screen.getByText("Sim");
@@ -89,6 +113,7 @@ test('fecha o modal ao clicar em "Não" e não remove o produto', async () => {
       </Provider>
     </MemoryRouter>
   );
+
   const removeButton = screen.getAllByText("Remover")[0];
 
   act(() => {
@@ -96,7 +121,9 @@ test('fecha o modal ao clicar em "Não" e não remove o produto', async () => {
   });
 
   await waitFor(() => {
-    const modalMessage = screen.queryByText("Tem certeza que deseja remover esse produto?");
+    const modalMessage = screen.queryByText(
+      "Tem certeza que deseja remover esse produto?"
+    );
     expect(modalMessage).toBeInTheDocument();
   });
 
@@ -112,3 +139,52 @@ test('fecha o modal ao clicar em "Não" e não remove o produto', async () => {
 
   expect(modal).not.toBeVisible();
 });
+
+test.skip("remove o produto após confirmação no modal", async () => {
+    const productIdToRemove = 1; // Use o ID (número) real que você deseja remover
+  
+    let removedProductId: string | null = null;
+  
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <ProductTable
+              products={products}
+            />
+          </QueryClientProvider>
+        </Provider>
+      </MemoryRouter>
+    );
+  
+    const removeButton = screen.getAllByText("Remover")[0];
+  
+    await act(async () => {
+      fireEvent.click(removeButton);
+    });
+  
+    await waitFor(() => {
+      const modalMessage = screen.queryByText(
+        "Tem certeza que deseja remover esse produto?"
+      );
+      expect(modalMessage).toBeInTheDocument();
+    });
+  
+    const confirmButton = screen.getAllByText("Sim")[0];
+  
+    await act(async () => {
+      fireEvent.click(confirmButton);
+    });
+  
+    await waitFor(() => {
+      const modalMessage = screen.queryByText(
+        "Tem certeza que deseja remover esse produto?"
+      );
+      expect(modalMessage).not.toBeInTheDocument();
+    });
+  
+    await act(async () => {
+      expect(removedProductId).toBe(productIdToRemove);
+    });
+  });
+  
