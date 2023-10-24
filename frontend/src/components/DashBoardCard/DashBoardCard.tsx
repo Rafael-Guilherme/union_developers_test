@@ -14,7 +14,7 @@ interface DashBoardCardProps {
     secondary?: boolean
     terciary?: boolean
     total?: number 
-    description?: string 
+    description?: string
 }
 
 
@@ -25,7 +25,7 @@ const DashBoardCard = ({ title, list, secondary, terciary, total, description }:
           <p className='title-card'>{title}</p>
           <div className='line' />
           {terciary ? (
-            <div className='total-products'>
+            <div data-testId='total-products' className='total-products'>
               <p className='total-products-value'>{total}</p>
               <p className='total-products-description'>{description}</p>
             </div>

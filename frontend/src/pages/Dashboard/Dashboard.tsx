@@ -55,9 +55,9 @@ const Dashboard = () => {
 
   return (
     <div className="container-dashboard">
-        <DashBoardCard title="Produtos com estoque baixo" list={listLowProducts} />
-        <DashBoardCard secondary title="Produtos mais caros" list={listExpensiveProducts} />
-        <DashBoardCard terciary title="Produtos" total={numberOfTotalProducts} description="Produtos adicionados"  />
+        <DashBoardCard data-testid="low-product-card" title="Produtos com estoque baixo" list={listLowProducts} />
+        <DashBoardCard data-testid="expensive-product-card" secondary title="Produtos mais caros" list={listExpensiveProducts} />
+        <DashBoardCard data-testid="total-products" terciary title="Produtos" total={numberOfTotalProducts} description="Produtos adicionados"  />
     </div>
   )
 }
