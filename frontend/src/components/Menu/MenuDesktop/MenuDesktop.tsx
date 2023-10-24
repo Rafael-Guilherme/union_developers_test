@@ -27,7 +27,7 @@ const MenuDesktop = () => {
           whileInView={{ x: [-285, 0] }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <nav className="container">
+          <nav className="container" data-testid="menu-desktop">
             <img className="logo-image" src={logo} />
             <ul>
               <li
@@ -58,11 +58,11 @@ const MenuDesktop = () => {
       )}
       <div className="closed-menu">
         {toggleMenu ? (
-          <div onClick={() => toggleMenuHandler()}>
+          <div data-testid="toggle-button" onClick={() => toggleMenuHandler()}>
             <img className="arrow" src={Arrow_right} />
           </div>
         ) : (
-          <div onClick={() => toggleMenuHandler()}>
+          <div data-testid="toggle-button" onClick={() => toggleMenuHandler()}>
             <img className="arrow" src={Arrow_left} />
           </div>
         )}
