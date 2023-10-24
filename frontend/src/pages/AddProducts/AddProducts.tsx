@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AddProductsSchemaValidation } from '../../schema/AddProductsShemaValidation'
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from 'uuid'
 import { useDispatch } from "react-redux";
 import { add } from "../../store/reducers/products";
 
@@ -15,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export type ProductsData = {
   name: string;
   category: string;
-  price?: string;
+  price: string;
   quantity: string;
 };
 
@@ -27,12 +28,16 @@ const AddProducts = () => {
   const navigate = useNavigate()
 
   const onSubmit = async (data: ProductsData) => {
+    const price = parseFloat(data.price)
+    const quantity = parseInt(data.quantity)
+
     try {
       dispatch(add({
+        id: uuidv4(),
         name: data.name,
         category: data.category,
-        price: data.price,
-        quantity: data.quantity
+        price: price,
+        quantity: quantity
       }))
 
       console.log(data);
@@ -97,8 +102,8 @@ const AddProducts = () => {
                 label="Preço"
                 name="price"
                 placeholder="0"
-                type="text"
-                value={`${field.value}`}
+                type="number"
+                value={field.value}
                 onChange={field.onChange}
               />
               {errors.price?.message}

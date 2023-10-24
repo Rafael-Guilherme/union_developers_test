@@ -1,16 +1,16 @@
 class Product {
-    id: number
+    id: string
     name: string
     category: string
-    price?: string
-    quantity: string
+    price: number
+    quantity: number
 
     constructor(
-        id: number,
+        id: string,
         name: string,
         category: string,
-        price: string,
-        quantity: string
+        price: number,
+        quantity: number
     ) {
         this.id = id
         this.name = name

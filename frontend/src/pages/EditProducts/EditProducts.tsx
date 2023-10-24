@@ -15,7 +15,7 @@ import { RootReducer } from "../../store";
 export type ProductsData = {
   name: string;
   category: string;
-  price?: string;
+  price: string;
   quantity: string;
 };
 
@@ -32,21 +32,24 @@ const EditProducts = () => {
   const { itens } = useSelector((state: RootReducer) => state.product);
   const { id } = useParams();
 
-  const convertIdToNumber = parseFloat(id || "");
+  const idString = id || ""
 
   const productInformation = itens.find(
-    (product) => product.id === convertIdToNumber
+    (product) => product.id === idString
   );
 
   const onSubmit = async (data: ProductsData) => {
+    const price = parseFloat(data.price)
+    const quantity = parseInt(data.quantity)
+
     try {
       dispatch(
         edit({
-          id: convertIdToNumber,
+          id: idString,
           name: data.name,
           category: data.category,
-          price: data.price,
-          quantity: data.quantity,
+          price: price,
+          quantity: quantity,
         })
       );
 
@@ -108,15 +111,15 @@ const EditProducts = () => {
         <Controller
           name="price"
           control={control}
-          defaultValue={productInformation?.price}
+          defaultValue={productInformation?.price.toString()}
           render={({ field }) => (
             <>
               <InputAddProducts
                 label="Preço"
                 name="price"
                 placeholder="0"
-                type="text"
-                value={`${field.value}`}
+                type="number"
+                value={field.value}
                 onChange={field.onChange}
               />
               {errors.price?.message}
@@ -126,7 +129,7 @@ const EditProducts = () => {
         <Controller
           name="quantity"
           control={control}
-          defaultValue={productInformation?.quantity}
+          defaultValue={productInformation?.quantity.toString()}
           render={({ field }) => (
             <>
               <InputAddProducts

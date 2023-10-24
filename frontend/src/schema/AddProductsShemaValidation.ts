@@ -5,21 +5,13 @@ export const AddProductsSchemaValidation = yup.object().shape({
   category: yup.string().required("A categoria é obrigatória"),
   price: yup
     .string()
-    .matches(/^\d+(\.\d{1,2})?$/, "O preço deve ser um número válido")
-    .transform((value, originalValue) => {
-      if (typeof originalValue === "string") {
-        return originalValue.replace(/[^0-9.]/g, "");
-      }
-      return value;
-    })
-    .test("formattedPrice", "Formato de preço inválido", (value) => {
+    .required("O preço é obrigatório")
+    .test("isPositive", "O preço não pode ser negativo", (value) => {
       if (typeof value === "string") {
-        const parts = value.split(".");
-        if (parts[1] && parts[1].length > 2) {
-          return false;
-        }
-        return true;
+        const numericValue = parseFloat(value);
+        return numericValue >= 0;
       }
+      return true;
     }),
   quantity: yup
     .string()

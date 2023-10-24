@@ -18,13 +18,13 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [productIdToRemove, setProductIdToRemove] = useState<number | null>(null);
+  const [productIdToRemove, setProductIdToRemove] = useState<string | null>(null);
 
-  const goToEditPage = (productId: number) => {
+  const goToEditPage = (productId: string) => {
     navigate(`${productId}`);
   }
 
-  const openModal = (productId: number) => {
+  const openModal = (productId: string) => {
     setProductIdToRemove(productId);
     setShowModal(true);
   }
@@ -59,7 +59,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
             <td data-title="ID">{product.id}</td>
             <td data-title="Nome">{product.name}</td>
             <td data-title="Categoria">{product.category}</td>
-            <td data-title="Preço">{priceConvertedToReal(parseFloat(product.price || '0'))}</td>
+            <td data-title="Preço">{priceConvertedToReal(product.price || 0)}</td>
             <td data-title="Quantidade">{product.quantity}</td>
             <td data-title="Ações">
               <ActionButton type="button" className="action-button-style" text="Editar" color="blue" onClick={() => goToEditPage(product.id)} />

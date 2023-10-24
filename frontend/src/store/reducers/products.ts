@@ -14,7 +14,7 @@ const productsSlice = createSlice({
     name: 'Products',
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<Omit<Product, 'id'>>) => {
+        add: (state, action: PayloadAction<Product>) => {
             const productAlreadyAdded = state.itens.find(
                 (product) => product.name.toLowerCase() === action.payload.name.toLowerCase()
             )
@@ -22,15 +22,10 @@ const productsSlice = createSlice({
             if (productAlreadyAdded) {
                 alert('Produto já cadastrado!')
             } else {
-                const lastProduct = state.itens[state.itens.length - 1]
-                const newProduct = {
-                    ...action.payload,
-                    id: lastProduct ? lastProduct.id + 1 : 1
-                }
-                state.itens.push(newProduct)
+                state.itens.push(action.payload)
             }
         },
-        remove: (state, action: PayloadAction<number>) => {
+        remove: (state, action: PayloadAction<string>) => {
             state.itens = [
                 ...state.itens.filter((product) => product.id !== action.payload)
             ]
