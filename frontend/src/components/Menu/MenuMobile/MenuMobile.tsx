@@ -20,7 +20,7 @@ const MenuMobile = () => {
   };
 
   return (
-    <div className="mobile-only">
+    <div className="mobile-only" data-testid="menu-mobile">
       {!toggleMobile ? (
         <motion.div
           whileInView={{ x: [-285, 0] }}
@@ -29,7 +29,11 @@ const MenuMobile = () => {
           <nav className="container">
             <img className="logo-image" src={logo} />
             <ul>
-              <li className={`list ${location.pathname === '/dashboard' ? 'active-mobile' : ''}`}>
+              <li
+                className={`list ${
+                  location.pathname === "/dashboard" ? "active-mobile" : ""
+                }`}
+              >
                 <img className="icon" src={Dashboard} />
                 <NavLink
                   to="/dashboard"
@@ -40,7 +44,11 @@ const MenuMobile = () => {
                 </NavLink>
                 <img className="arrow-down-style" src={Arrow} />
               </li>
-              <li className={`list ${location.pathname === '/products' ? 'active-mobile' : ''}`}>
+              <li
+                className={`list ${
+                  location.pathname === "/products" ? "active-mobile" : ""
+                }`}
+              >
                 <img className="icon" src={Bar} />
                 <NavLink
                   to="/products"
@@ -53,7 +61,11 @@ const MenuMobile = () => {
               </li>
               <li className="list">
                 <img className="icon" src={Categories} />
-                <a onClick={() => toggleMobileHandler()} className="list-item">
+                <a
+                  data-testid="close-toggle-button"
+                  onClick={() => toggleMobileHandler()}
+                  className="list-item"
+                >
                   Categorias
                 </a>
                 <img className="arrow-down-style" src={Arrow} />
@@ -63,7 +75,10 @@ const MenuMobile = () => {
         </motion.div>
       ) : (
         <div className="closed-menu">
-          <div onClick={() => toggleMobileHandler()}>
+          <div
+            data-testid="toggle-button"
+            onClick={() => toggleMobileHandler()}
+          >
             <img className="menu" src={Categories} />
           </div>
         </div>
