@@ -7,7 +7,6 @@ import "./Dashboard.scss"
 import { api } from "../../services/api"
 
 
-
 const Dashboard = () => {
     //const { itens } = useSelector((state: RootReducer) => state.product)
     const { data: products, isLoading, isError } = useQuery('products', async () => {

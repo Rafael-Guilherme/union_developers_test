@@ -40,8 +40,6 @@ const Products = () => {
   
 
   const filteredProductslist = getFilteredProducts()
-  console.log(filteredProductslist)
-
   const handleFilterChange = (newFilter: string) => {
     setFilter(newFilter);
   };
