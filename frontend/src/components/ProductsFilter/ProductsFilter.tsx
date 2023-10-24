@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 
 import "./ProducstsFilter.scss";
 
-import IconSearch from "../../assets/search.svg?react"
+import IconSearch from "../../assets/search.png"
 
 interface ProductFilterProps {
   onFilterChange: (filter: string) => void;
@@ -17,7 +17,7 @@ const ProductFilter = ({ onFilterChange }: ProductFilterProps) => {
   return (
     <div className="product-filter">
       <label htmlFor="filter"></label>
-      <IconSearch />
+      <img src={IconSearch} />
       <input
         className="product-filter-input"
         type="text"

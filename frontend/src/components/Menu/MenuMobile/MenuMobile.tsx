@@ -4,10 +4,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import logo from "../../../assets/logo.png";
-import Dashboard from "../../../assets/dashboard.svg?react";
-import Arrow from "../../../assets/chevron-down.svg?react";
-import Bar from "../../../assets/bar.svg?react";
-import Categories from "../../../assets/menu.svg?react";
+import Dashboard from "../../../assets/dashboard.png";
+import Arrow from "../../../assets/arrow-down.png";
+import Bar from "../../../assets/bar.png";
+import Categories from "../../../assets/menu.png";
 
 import "./MenuMobile.scss";
 
@@ -30,7 +30,7 @@ const MenuMobile = () => {
             <img className="logo-image" src={logo} />
             <ul>
               <li className={`list ${location.pathname === '/dashboard' ? 'active-mobile' : ''}`}>
-                <Dashboard className="icon" />
+                <img className="icon" src={Dashboard} />
                 <NavLink
                   to="/dashboard"
                   className="list-item"
@@ -38,10 +38,10 @@ const MenuMobile = () => {
                 >
                   Dashboard
                 </NavLink>
-                <Arrow className="icon" />
+                <img className="arrow-down-style" src={Arrow} />
               </li>
               <li className={`list ${location.pathname === '/products' ? 'active-mobile' : ''}`}>
-                <Bar className="icon" />
+                <img className="icon" src={Bar} />
                 <NavLink
                   to="/products"
                   className="list-item"
@@ -49,21 +49,23 @@ const MenuMobile = () => {
                 >
                   Produtos
                 </NavLink>
-                <Arrow className="icon" />
+                <img className="arrow-down-style" src={Arrow} />
               </li>
               <li className="list">
-                <Categories className="icon" />
+                <img className="icon" src={Categories} />
                 <a onClick={() => toggleMobileHandler()} className="list-item">
                   Categorias
                 </a>
-                <Arrow className="icon" />
+                <img className="arrow-down-style" src={Arrow} />
               </li>
             </ul>
           </nav>
         </motion.div>
       ) : (
         <div className="closed-menu">
-          <Categories onClick={() => toggleMobileHandler()} className="menu" />
+          <div onClick={() => toggleMobileHandler()}>
+            <img className="menu" src={Categories} />
+          </div>
         </div>
       )}
     </div>

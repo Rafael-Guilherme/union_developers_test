@@ -4,11 +4,11 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import logo from "../../../assets/logo.png";
-import Dashboard from "../../../assets/dashboard.svg?react";
-import Arrow from "../../../assets/chevron-down.svg?react";
-import Bar from "../../../assets/bar.svg?react";
-import Arrow_right from "../../../assets/arrow-right.svg?react";
-import Arrow_left from "../../../assets/arrow-left.svg?react";
+import Dashboard from "../../../assets/dashboard.png";
+import Arrow from "../../../assets/arrow-down.png";
+import Bar from "../../../assets/bar.png";
+import Arrow_right from "../../../assets/arrow-right.png";
+import Arrow_left from "../../../assets/arrow-left.png";
 
 import "./MenuDesktop.scss";
 
@@ -35,22 +35,22 @@ const MenuDesktop = () => {
                   location.pathname === "/dashboard" ? "active" : ""
                 }`}
               >
-                <Dashboard className="icon" />
+                <img className="icon" src={Dashboard} />
                 <NavLink to="/dashboard" className="list-item">
                   Dashboard
                 </NavLink>
-                <Arrow className="icon" />
+                <img className="arrow-down-style" src={Arrow} />
               </li>
               <li
                 className={`list ${
                   location.pathname === "/products" ? "active" : ""
                 }`}
               >
-                <Bar className="icon" />
+                <img className="icon" src={Bar} />
                 <NavLink to="/products" className="list-item">
-                  Produtos
+                  Produtos 
                 </NavLink>
-                <Arrow className="icon" />
+                <img className="arrow-down-style" src={Arrow} />
               </li>
             </ul>
           </nav>
@@ -58,9 +58,13 @@ const MenuDesktop = () => {
       )}
       <div className="closed-menu">
         {toggleMenu ? (
-          <Arrow_right onClick={() => toggleMenuHandler()} className="arrow" />
+          <div onClick={() => toggleMenuHandler()}>
+            <img className="arrow" src={Arrow_right} />
+          </div>
         ) : (
-          <Arrow_left onClick={() => toggleMenuHandler()} className="arrow" />
+          <div onClick={() => toggleMenuHandler()}>
+            <img className="arrow" src={Arrow_left} />
+          </div>
         )}
       </div>
     </div>
