@@ -1,14 +1,19 @@
+import { QueryClient, QueryClientProvider } from 'react-query'
 import Menu from './components/Menu/Menu'
 import RoutesTree from './routes/Routes'
 
 import './App.scss'
 
+const queryClient = new QueryClient()
+
 function App() {
 
   return (
     <div className='app'>
-      <Menu />
-      <RoutesTree />
+      <QueryClientProvider client={queryClient}>
+        <Menu />
+        <RoutesTree />
+      </QueryClientProvider>
     </div>
   )
 }

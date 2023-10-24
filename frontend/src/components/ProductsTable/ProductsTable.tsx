@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useMutation, useQueryClient } from "react-query";
+import { api } from "../../services/api";
 
 import Product from "../../models/Product";
 import { priceConvertedToReal } from "../../utils/priceReal";
@@ -9,6 +11,7 @@ import ActionButton from "../Button/ActionButton";
 import { remove } from "../../store/reducers/products"; 
 
 import "./ProductsTable.scss";
+import { toast } from "react-toastify";
 
 interface ProductTableProps {
   products: Product[];
@@ -19,6 +22,12 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [productIdToRemove, setProductIdToRemove] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+
+  const deleteProduct = useMutation(async (productId: string) => {
+    const response = await api.delete(`/products/${productId}`);
+    return response.data;
+  });
 
   const goToEditPage = (productId: string) => {
     navigate(`${productId}`);
@@ -34,9 +43,14 @@ const ProductTable = ({ products }: ProductTableProps) => {
     setProductIdToRemove(null);
   }
 
-  const confirmAndRemove = () => {
+  const confirmAndRemove = async () => {
     if (productIdToRemove) {
+      await deleteProduct.mutateAsync(productIdToRemove)
+      queryClient.invalidateQueries('products');
       dispatch(remove(productIdToRemove));
+
+      toast.success('Produto removido com sucesso do banco de dados!');
+
       closeModal();
     }
   }
@@ -59,7 +73,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
             <td data-title="ID">{product.id}</td>
             <td data-title="Nome">{product.name}</td>
             <td data-title="Categoria">{product.category}</td>
-            <td data-title="Preço">{priceConvertedToReal(product.price || 0)}</td>
+            <td data-title="Preço">{priceConvertedToReal(parseFloat(product.price || '0'))}</td>
             <td data-title="Quantidade">{product.quantity}</td>
             <td data-title="Ações">
               <ActionButton type="button" className="action-button-style" text="Editar" color="blue" onClick={() => goToEditPage(product.id)} />

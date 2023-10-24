@@ -4,6 +4,8 @@ import { AddProductsSchemaValidation } from "../../schema/AddProductsShemaValida
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "react-query";
+import { api } from "../../services/api";
 import { edit } from "../../store/reducers/products";
 
 import ActionButton from "../../components/Button/ActionButton";
@@ -31,6 +33,19 @@ const EditProducts = () => {
   const navigate = useNavigate();
   const { itens } = useSelector((state: RootReducer) => state.product);
   const { id } = useParams();
+  const queryClient = useQueryClient()
+  const { data: productById, isLoading, isError } = useQuery<ProductsData>('product', async () => {
+    const response = await api.get(`/products/${id}`);
+    return response.data;
+  });
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (isError) {
+    return <p>Ocorreu um erro ao buscar os produtos.</p>;
+  }
 
   const idString = id || ""
 
@@ -39,26 +54,28 @@ const EditProducts = () => {
   );
 
   const onSubmit = async (data: ProductsData) => {
-    const price = parseFloat(data.price)
     const quantity = parseInt(data.quantity)
 
     try {
-      dispatch(
-        edit({
-          id: idString,
-          name: data.name,
-          category: data.category,
-          price: price,
-          quantity: quantity,
-        })
-      );
+      const formattedData = {
+        name: data.name,
+        category: data.category,
+        price: data.price,
+        quantity: quantity
+      };
 
-      console.log(data);
-      toast.success("Produto atualizado com sucesso!");
-
+      await api.put(`products/${id}`, formattedData);
+  
+      dispatch(edit({
+        id: idString,
+        ...formattedData
+      })),
+      queryClient.invalidateQueries('products');
+      toast.success('Produto atualizado com sucesso no banco de dados!');
+      
       setTimeout(() => {
-        navigate("/dashboard");
-      }, 2000);
+        navigate('/dashboard')
+      }, 2000)
     } catch (error) {
       console.log(error);
       toast.error(
@@ -75,7 +92,7 @@ const EditProducts = () => {
         <Controller
           name="name"
           control={control}
-          defaultValue={productInformation?.name}
+          defaultValue={productById?.name}
           render={({ field }) => (
             <>
               <InputAddProducts
@@ -93,7 +110,7 @@ const EditProducts = () => {
         <Controller
           name="category"
           control={control}
-          defaultValue={productInformation?.category}
+          defaultValue={productById?.category}
           render={({ field }) => (
             <>
               <InputAddProducts
@@ -111,7 +128,7 @@ const EditProducts = () => {
         <Controller
           name="price"
           control={control}
-          defaultValue={productInformation?.price.toString()}
+          defaultValue={productById?.price}
           render={({ field }) => (
             <>
               <InputAddProducts
@@ -129,7 +146,7 @@ const EditProducts = () => {
         <Controller
           name="quantity"
           control={control}
-          defaultValue={productInformation?.quantity.toString()}
+          defaultValue={productById?.quantity}
           render={({ field }) => (
             <>
               <InputAddProducts

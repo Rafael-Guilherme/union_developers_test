@@ -2,14 +2,14 @@ class Product {
     id: string
     name: string
     category: string
-    price: number
+    price: string
     quantity: number
 
     constructor(
         id: string,
         name: string,
         category: string,
-        price: number,
+        price: string,
         quantity: number
     ) {
         this.id = id

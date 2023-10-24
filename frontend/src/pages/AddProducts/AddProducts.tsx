@@ -12,6 +12,8 @@ import InputAddProducts from "../../components/InputAddProducts/InputAddProducts
 
 import "./AddProducts.scss";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { api } from "../../services/api";
 
 export type ProductsData = {
   name: string;
@@ -26,23 +28,28 @@ const AddProducts = () => {
   });
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const onSubmit = async (data: ProductsData) => {
-    const price = parseFloat(data.price)
     const quantity = parseInt(data.quantity)
 
     try {
-      dispatch(add({
-        id: uuidv4(),
+      const formattedData = {
         name: data.name,
         category: data.category,
-        price: price,
+        price: data.price,
         quantity: quantity
-      }))
+      };
 
-      console.log(data);
-      toast.success("Produto cadastrado com sucesso!")
-
+      await api.post('/products', formattedData);
+  
+      dispatch(add({
+        id: uuidv4(),
+        ...formattedData
+      })),
+      queryClient.invalidateQueries('products');
+      toast.success('Produto cadastrado com sucesso no banco de dados!');
+      
       setTimeout(() => {
         navigate('/dashboard')
       }, 2000)
@@ -50,7 +57,7 @@ const AddProducts = () => {
       console.log(error)
       toast.error("Ocorreu um erro no cadastro do seu produto, tente novamente!")
     }
-  };
+  }
 
   return (
     <div className="container-add-products">

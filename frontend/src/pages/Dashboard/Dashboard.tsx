@@ -1,28 +1,42 @@
-import { useSelector } from "react-redux"
+import { useQuery } from "react-query"
+//import { useSelector } from "react-redux"
 import DashBoardCard from "../../components/DashBoardCard/DashBoardCard"
 
 import "./Dashboard.scss"
-import { RootReducer } from "../../store"
+//import { RootReducer } from "../../store"
+import { api } from "../../services/api"
 
 
 
 const Dashboard = () => {
-    const { itens } = useSelector((state: RootReducer) => state.product)
+    //const { itens } = useSelector((state: RootReducer) => state.product)
+    const { data: products, isLoading, isError } = useQuery('products', async () => {
+      const response = await api.get('/products');
+      return response.data;
+    });
+  
+    if (isLoading) {
+      return <p>Carregando...</p>;
+    }
+  
+    if (isError) {
+      return <p>Ocorreu um erro ao buscar os produtos.</p>;
+    }
 
     const filterLowProducts = () => {
-        const lowProducts = itens ? [...itens] : []
+        const lowProducts = products ? [...products] : []
       
-        lowProducts.sort((a, b) => parseInt(a.quantity) - parseInt(b.quantity))
+        lowProducts.sort((a, b) => (a.quantity) - (b.quantity))
       
         return lowProducts
       }
       
       const filterExpensiveProducts = () => {
-        const expensiveProduct = itens ? [...itens] : []
+        const expensiveProduct = products ? [...products] : []
       
         expensiveProduct.sort((a, b) => {
-          const priceA = a.price ? parseInt(a.price, 10) : 0 
-          const priceB = b.price ? parseInt(b.price, 10) : 0 
+          const priceA = a.price ? (a.price, 10) : 0 
+          const priceB = b.price ? (b.price, 10) : 0 
       
           return priceB - priceA
         })
@@ -31,7 +45,7 @@ const Dashboard = () => {
       }
 
     const getTotalProducts = () => {
-        const totalProducts = itens.length
+        const totalProducts = products.length
 
         return totalProducts
     }
