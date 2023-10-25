@@ -1,4 +1,3 @@
-/// <reference types="vite-plugin-svgr/client" />
 import { ChangeEvent } from "react";
 
 import "./ProducstsFilter.scss";

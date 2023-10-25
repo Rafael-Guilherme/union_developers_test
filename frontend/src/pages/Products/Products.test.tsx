@@ -52,19 +52,15 @@ test("Renderiza a página de produtos", async () => {
     </MemoryRouter>
   );
 
-  // Verifica se o título da página está presente
   expect(screen.getByText("Produtos")).toBeInTheDocument();
 
-  // Verifica se o filtro de produtos está presente
   expect(
     screen.getByPlaceholderText("Filtrar produtos...")
   ).toBeInTheDocument();
 
-  // Verifica se a tabela de produtos está presente
   const table = screen.getByRole("table");
   expect(table).toBeInTheDocument();
 
-  // Verifica se o botão "Adicionar produto" está presente
   expect(screen.getByText("Adicionar produto")).toBeInTheDocument();
 });
 
@@ -79,7 +75,6 @@ test("Renderiza a lista de produtos corretamente", async () => {
     </MemoryRouter>
   );
 
-  // Verifica se os produtos na lista são renderizados corretamente
   await waitFor(() => {
     expect(screen.getByText("Product A")).toBeInTheDocument();
     expect(screen.getByText("Category A")).toBeInTheDocument();
@@ -101,16 +96,13 @@ test("Filtra produtos corretamente", async () => {
     </MemoryRouter>
   );
 
-  // Digita um filtro no campo de filtro
   const filterInput = screen.getByPlaceholderText("Filtrar produtos...");
   fireEvent.change(filterInput, { target: { value: "Product A" } });
 
-  // Verifica se o produto filtrado está presente na lista
   await waitFor(() => {
     expect(screen.getByText("Product A")).toBeInTheDocument();
   });
 
-  // Verifica se outros produtos não filtrados não estão presentes na lista
   expect(screen.queryByText("Product B")).toBeNull();
   expect(screen.queryByText("Product C")).toBeNull();
 });
@@ -126,10 +118,8 @@ test("Redireciona para a página de adição de produtos", async () => {
     </MemoryRouter>
   );
 
-  // Clica no botão "Adicionar produto"
   const addButton = screen.getByText("Adicionar produto");
   fireEvent.click(addButton);
 
-  // Verifica se a rota foi alterada para a página de adição de produtos
   expect(container.innerHTML).toMatch("Adicionar um produto");
 });
