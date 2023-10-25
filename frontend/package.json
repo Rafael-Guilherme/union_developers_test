@@ -18,7 +18,6 @@
     "@tanstack/react-query": "^5.0.5",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
-    "i": "^0.3.7",
     "node-sass": "^9.0.0",
     "npm": "^10.2.1",
     "react": "^18.2.0",
@@ -91,9 +90,15 @@
       "^.+\\.svg$": "<rootDir>/.jest/svgTransform.cjs"
     },
     "collectCoverage": true,
-    "collectCoverageFrom": ["src/**/*.[jt]s?(x)", "!**/__tests__/**"],
+    "collectCoverageFrom": [
+      "src/**/*.[jt]s?(x)",
+      "!**/__tests__/**"
+    ],
     "coveragePathIgnorePatterns": [
-      "<rootDir>/src/stories/", "<rootDir>/src/models/", "<rootDir>/src/main.tsx", "<rootDir>/src/vite-env.d.ts"
+      "<rootDir>/src/stories/",
+      "<rootDir>/src/models/",
+      "<rootDir>/src/main.tsx",
+      "<rootDir>/src/vite-env.d.ts"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.jest/mock/fileMock.cjs",
