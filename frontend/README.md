@@ -7,17 +7,22 @@ Para começar, você precisa clonar este repositório em sua máquina local. Voc
 
 $ git clone https://github.com/Rafael-Guilherme/union_developers_test.git
 
+## Entre na pasta frontend
+
+Certifique-se de que você está na pasta do projeto e então entre na pasta do frontend:
+
+cd frontend
 
 ## Instalando as Dependências
 
-Certifique-se de que você está na pasta do projeto e então instale as dependências com o seguinte comando:
+Instale as dependências com o seguinte comando:
 
 $ npm install
 
 
 ## Configurando a API
 
-Antes de rodar o projeto, certifique-se de que a configuração da API está correta. Você pode encontrar o arquivo de configuração em `src/api.ts`. Verifique se a URL da API está configurada corretamente.
+Antes de rodar o projeto, certifique-se de que a configuração da API está correta. Você pode encontrar o arquivo de configuração em `src/services/api.ts`. Verifique se a URL da API está configurada corretamente.
 
 
 ## Rodando o Servidor de Desenvolvimento
@@ -35,4 +40,4 @@ Isso iniciará o servidor de desenvolvimento e você poderá acessar o aplicativ
 - `build`: Gera a versão de produção do aplicativo.
 - `test`: Executa os testes usando o Jest.
 
-Divirta-se explorando o aplicativo e fazendo alterações conforme necessário!
+Divirta-se explorando o aplicativo e aguardo o seu feedback!
