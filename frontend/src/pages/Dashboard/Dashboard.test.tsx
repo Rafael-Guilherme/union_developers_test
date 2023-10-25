@@ -1,8 +1,11 @@
 import "@testing-library/jest-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { render, waitFor, screen } from '@testing-library/react';
 import Dashboard from './Dashboard';
 
-jest.mock('react-query', () => ({
+const queryClient = new QueryClient();
+
+jest.mock('@tanstack/react-query', () => ({
   useQuery: () => ({
     data: [
       { id: 1, name: 'Produto 1', category: 'any', quantity: 10, price: 20.0 },
@@ -14,12 +17,20 @@ jest.mock('react-query', () => ({
 }));
 
 test('Não renderiza a mensagem "Carregando..." durante o carregamento', () => {
-    const { queryByText } = render(<Dashboard />);
+    const { queryByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
     expect(queryByText('Carregando...')).toBeNull();
 });
 
 test('Renderiza os produtos com estoque baixo', async () => {
-    render(<Dashboard />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
     await waitFor(() => {
       expect(screen.getByText('10')).toBeInTheDocument();
       expect(screen.getByText('5')).toBeInTheDocument();
@@ -27,7 +38,11 @@ test('Renderiza os produtos com estoque baixo', async () => {
   });
   
   test('Renderiza os produtos mais caros', async () => {
-    render(<Dashboard />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
     await waitFor(() => {
       expect(screen.getByText('R$ 20,00')).toBeInTheDocument();
       expect(screen.getByText('R$ 30,00')).toBeInTheDocument();
@@ -35,7 +50,11 @@ test('Renderiza os produtos com estoque baixo', async () => {
   });
   
   test('Renderiza o total de produtos', async () => {
-    render(<Dashboard />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    );
     const totalProducts = screen.getByTestId('total-products');
     expect(totalProducts).toBeInTheDocument();
   

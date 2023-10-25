@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 //import { useSelector } from "react-redux";
 //import { RootReducer } from "../../store";
@@ -16,9 +16,12 @@ const Products = () => {
   const [filter, setFilter] = useState("");
   const navigate = useNavigate()
   //const { itens } = useSelector((state: RootReducer) => state.product)
-  const { data: products, isLoading, isError } = useQuery('products', async () => {
-    const response = await api.get('/products');
-    return response.data;
+  const { data: products, isLoading, isError } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await api.get("/products/");
+      return response.data;
+    },
   });
 
   if (isLoading) {
@@ -27,6 +30,10 @@ const Products = () => {
 
   if (isError) {
     return <p>Ocorreu um erro ao buscar os produtos.</p>;
+  }
+
+  if (!Array.isArray(products)) {
+    return <p>Dados inválidos recebidos da API.</p>;
   }
 
   const getFilteredProducts = () => {

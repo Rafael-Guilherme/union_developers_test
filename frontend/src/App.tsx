@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Menu from './components/Menu/Menu'
 import RoutesTree from './routes/Routes'
 

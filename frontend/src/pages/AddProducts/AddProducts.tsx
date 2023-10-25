@@ -3,6 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { AddProductsSchemaValidation } from '../../schema/AddProductsShemaValidation'
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from "react-router-dom";
+//import { useQueryClient } from "react-query";
+import { api } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { add } from "../../store/reducers/products";
 
@@ -11,9 +14,6 @@ import InputAddProducts from "../../components/InputAddProducts/InputAddProducts
 
 
 import "./AddProducts.scss";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "react-query";
-import { api } from "../../services/api";
 
 export type ProductsData = {
   name: string;
@@ -28,7 +28,7 @@ const AddProducts = () => {
   });
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  //const queryClient = useQueryClient()
 
   const onSubmit = async (data: ProductsData) => {
     const quantity = parseInt(data.quantity)
@@ -47,8 +47,8 @@ const AddProducts = () => {
         id: uuidv4(),
         ...formattedData
       })),
-      queryClient.invalidateQueries('products');
       toast.success('Produto cadastrado com sucesso no banco de dados!');
+      //queryClient.invalidateQueries('products');
       
       setTimeout(() => {
         navigate('/dashboard')

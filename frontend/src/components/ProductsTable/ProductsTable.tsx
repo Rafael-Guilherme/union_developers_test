@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../services/api";
 
 import Product from "../../models/Product";
@@ -24,9 +24,11 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const [productIdToRemove, setProductIdToRemove] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const deleteProduct = useMutation(async (productId: string) => {
-    const response = await api.delete(`/products/${productId}`);
-    return response.data;
+  const deleteProduct = useMutation({
+    mutationFn: async (productId: string) => {
+      const response = await api.delete(`/products/${productId}`);
+      return response.data;
+    }
   });
 
   const goToEditPage = (productId: string) => {
@@ -46,7 +48,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const confirmAndRemove = async () => {
     if (productIdToRemove) {
       await deleteProduct.mutateAsync(productIdToRemove)
-      queryClient.invalidateQueries('products');
+      queryClient.invalidateQueries();
       dispatch(remove(productIdToRemove));
       toast.success('Produto removido com sucesso do banco de dados!');
 

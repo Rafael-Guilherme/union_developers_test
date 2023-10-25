@@ -7,16 +7,11 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router-dom";
 import ProductTable from "./ProductsTable";
 
 import configureStore from "redux-mock-store";
-
-jest.mock("../../store/reducers/products", () => ({
-    removeProduct: (id: string) => ({ type: "REMOVE_PRODUCT", payload: id }),
-  }));
-  
 
 const mockStore = configureStore([]);
 const store = mockStore({
