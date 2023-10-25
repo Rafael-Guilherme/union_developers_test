@@ -9,11 +9,11 @@ import { api } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { add } from "../../store/reducers/products";
 
-import ActionButton from "../../components/Button/ActionButton";
 import InputAddProducts from "../../components/InputAddProducts/InputAddProducts";
 
 
 import "./AddProducts.scss";
+import { motion } from "framer-motion";
 
 export type ProductsData = {
   name: string;
@@ -60,7 +60,12 @@ const AddProducts = () => {
   }
 
   return (
-    <div className="container-add-products">
+    <motion.div 
+      className="container-add-products"
+      initial={{ opacity: 0, y: 50 }} 
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }} 
+    >
       <h1>Adicionar Produtos</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
@@ -136,15 +141,16 @@ const AddProducts = () => {
           )}
         />
         <div className="container-button">
-          <ActionButton
+          <motion.button
             className="add-product-button"
-            text="Adicionar"
-            color="blue"
             type="submit"
-          />
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          >
+            Adicionar
+          </motion.button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

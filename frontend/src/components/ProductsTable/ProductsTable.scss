@@ -109,6 +109,8 @@
           width: 227px;
           height: 58px;
           padding: 10px 55px;
+          cursor: pointer;
+          border-radius: 10px;
           gap: 10px;
           font-weight: 600;
           font-size: 25px;
@@ -117,6 +119,14 @@
           @media (max-width: 768px) {
             width: 160px;
           }
+        }
+
+        .button-gray {
+          background-color: $input-border;
+        }
+
+        .button-red {
+          background-color: $vermelho;
         }
       }
     }

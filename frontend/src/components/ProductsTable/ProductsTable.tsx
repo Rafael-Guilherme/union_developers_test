@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
 import Product from "../../models/Product";
@@ -11,7 +13,6 @@ import ActionButton from "../Button/ActionButton";
 import { remove } from "../../store/reducers/products"; 
 
 import "./ProductsTable.scss";
-import { toast } from "react-toastify";
 
 interface ProductTableProps {
   products: Product[];
@@ -89,8 +90,22 @@ const ProductTable = ({ products }: ProductTableProps) => {
             <p>Tem certeza que deseja remover esse produto?</p>
             <div className="line" />
             <div className="modal-actions">
-              <ActionButton className="action-button-style" type="button" text="Não" color="gray" onClick={closeModal} />
-              <ActionButton className="action-button-style" type="button" text="Sim" color="red" onClick={confirmAndRemove} />
+              <motion.button
+                className="action-button-style button-gray"
+                type="button"
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                onClick={closeModal} 
+              >
+                Não
+              </motion.button>
+              <motion.button
+                className="action-button-style button-red"
+                type="button"
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                onClick={confirmAndRemove} 
+              >
+                Sim
+              </motion.button>
             </div>
           </div>
         </div>

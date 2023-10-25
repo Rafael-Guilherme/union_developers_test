@@ -8,10 +8,10 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../services/api";
 //import { edit } from "../../store/reducers/products";
 
-import ActionButton from "../../components/Button/ActionButton";
 import InputAddProducts from "../../components/InputAddProducts/InputAddProducts";
 
 import "./EditProducts.scss";
+import { motion } from "framer-motion";
 //import { RootReducer } from "../../store";
 
 export type ProductsData = {
@@ -25,7 +25,7 @@ const EditProducts = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ProductsData>({
     resolver: yupResolver(AddProductsSchemaValidation),
   });
@@ -34,9 +34,7 @@ const EditProducts = () => {
   //const { itens } = useSelector((state: RootReducer) => state.product);
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const {
-    data: productById,
-  } = useQuery<ProductsData>({
+  const { data: productById } = useQuery<ProductsData>({
     queryKey: ["products"],
     queryFn: async () => {
       const response = await api.get(`/products/${id}`);
@@ -82,7 +80,12 @@ const EditProducts = () => {
   };
 
   return (
-    <div className="container-edit-products">
+    <motion.div
+      className="container-edit-products"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+    >
       <h1>Editar Produto</h1>
       {!productById?.category ? (
         <p>Carregando...</p>
@@ -163,17 +166,18 @@ const EditProducts = () => {
               )}
             />
             <div className="container-button">
-              <ActionButton
+              <motion.button
                 className="edit-product-button"
-                text="Atualizar"
-                color="blue"
                 type="submit"
-              />
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+              >
+                Atualizar
+              </motion.button>
             </div>
           </form>
         </>
       )}
-    </div>
+    </motion.div>
   );
 };
 
