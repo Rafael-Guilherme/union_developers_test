@@ -11,7 +11,7 @@ $ git clone https://github.com/Rafael-Guilherme/union_developers_test.git
 
 Certifique-se de que você está na pasta do projeto e então entre na pasta do frontend:
 
-cd frontend
+$cd frontend
 
 ## Instalando as Dependências
 
